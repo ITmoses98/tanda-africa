@@ -1,10 +1,13 @@
 import { useState } from "react";
+import PhoneInput from "../components/PhoneInput";
 
 export default function Seller() {
-  const [form, setForm] = useState({ name: "", email: "", phone: "", store: "", type: "" });
+  const [form, setForm] = useState({ name: "", email: "", phoneCode: "NG", phoneDial: "+234", phoneNumber: "", store: "", type: "" });
   const [submitted, setSubmitted] = useState(false);
 
   const handleChange = (e) => setForm({ ...form, [e.target.name]: e.target.value });
+
+  const handlePhoneChange = (val) => setForm({ ...form, phoneCode: val.code, phoneDial: val.dial, phoneNumber: val.number });
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -80,21 +83,21 @@ export default function Seller() {
               <div className="form-row">
                 <div className="form-group">
                   <label>Full Name</label>
-                  <input name="name" value={form.name} onChange={handleChange} required placeholder="Your full name" />
+                  <input name="name" value={form.name} onChange={handleChange} required />
                 </div>
                 <div className="form-group">
                   <label>Email</label>
-                  <input name="email" type="email" value={form.email} onChange={handleChange} required placeholder="your@email.com" />
+                  <input name="email" type="email" value={form.email} onChange={handleChange} required />
                 </div>
               </div>
               <div className="form-row">
                 <div className="form-group">
                   <label>Phone</label>
-                  <input name="phone" type="tel" value={form.phone} onChange={handleChange} required placeholder="+234 800 000 0000" />
+                  <PhoneInput required defaultCode="NG" onChange={handlePhoneChange} />
                 </div>
                 <div className="form-group">
                   <label>Store/Business Name</label>
-                  <input name="store" value={form.store} onChange={handleChange} required placeholder="Your book store name" />
+                  <input name="store" value={form.store} onChange={handleChange} required />
                 </div>
               </div>
               <div className="form-group">

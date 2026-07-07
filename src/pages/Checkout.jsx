@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useCart } from "../context/CartContext";
+import PhoneInput from "../components/PhoneInput";
 
 
 
@@ -68,39 +69,39 @@ export default function Checkout() {
                 <div className="form-row">
                   <div className="form-group">
                     <label>First Name</label>
-                    <input required placeholder="John" />
+                    <input required />
                   </div>
                   <div className="form-group">
                     <label>Last Name</label>
-                    <input required placeholder="Doe" />
+                    <input required />
                   </div>
                 </div>
                 <div className="form-group">
                   <label>Email</label>
-                  <input type="email" required placeholder="john@example.com" />
+                  <input type="email" required />
                 </div>
                 <div className="form-group">
                   <label>Phone</label>
-                  <input type="tel" required placeholder="+234 800 000 0000" />
+                  <PhoneInput required defaultCode="NG" />
                 </div>
                 <div className="form-group">
                   <label>Address</label>
-                  <input required placeholder="123 Main Street" />
+                  <input required />
                 </div>
                 <div className="form-row">
                   <div className="form-group">
                     <label>City</label>
-                    <input required placeholder="Lagos" />
+                    <input required />
                   </div>
                   <div className="form-group">
                     <label>State</label>
-                    <input required placeholder="Lagos" />
+                    <input required />
                   </div>
                 </div>
                 <div className="form-row">
                   <div className="form-group">
                     <label>ZIP Code</label>
-                    <input placeholder="100001" />
+                    <input />
                   </div>
                   <div className="form-group">
                     <label>Country</label>
@@ -154,16 +155,16 @@ export default function Checkout() {
                 </div>
                 <div className="form-group">
                   <label>Card Number</label>
-                  <input placeholder="4242 4242 4242 4242" />
+                  <input />
                 </div>
                 <div className="form-row">
                   <div className="form-group">
                     <label>Expiry Date</label>
-                    <input placeholder="MM/YY" />
+                    <input placeholder="MM / YY" />
                   </div>
                   <div className="form-group">
                     <label>CVV</label>
-                    <input placeholder="123" />
+                    <input />
                   </div>
                 </div>
               </div>

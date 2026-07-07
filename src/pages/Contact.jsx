@@ -60,11 +60,11 @@ export default function Contact() {
                 <div className="form-row">
                   <div className="form-group">
                     <label>Name</label>
-                    <input required placeholder="Your name" />
+                    <input required />
                   </div>
                   <div className="form-group">
                     <label>Email</label>
-                    <input type="email" required placeholder="your@email.com" />
+                    <input type="email" required />
                   </div>
                 </div>
                 <div className="form-group">
@@ -81,7 +81,7 @@ export default function Contact() {
                 </div>
                 <div className="form-group">
                   <label>Message</label>
-                  <textarea rows="5" required placeholder="Describe your inquiry..."></textarea>
+                  <textarea rows="5" required></textarea>
                 </div>
                 <button type="submit" className="btn btn-primary">Send Message</button>
               </>
