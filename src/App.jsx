@@ -2,6 +2,7 @@ import { Routes, Route, Navigate } from "react-router-dom";
 import { useAuth } from "./context/AuthContext";
 import Layout from "./components/Layout";
 import AdminLayout from "./components/AdminLayout";
+import DashboardLayout from "./components/DashboardLayout";
 import Home from "./pages/Home";
 import Catalog from "./pages/Catalog";
 import BookDetail from "./pages/BookDetail";
@@ -33,11 +34,25 @@ import AdminReports from "./pages/admin/AdminReports";
 import AdminAnalytics from "./pages/admin/AdminAnalytics";
 import AdminReviews from "./pages/admin/AdminReviews";
 import AdminShipping from "./pages/admin/AdminShipping";
+import DashboardHome from "./pages/dashboard/DashboardHome";
+import DashboardProfile from "./pages/dashboard/DashboardProfile";
+import DashboardOrders from "./pages/dashboard/DashboardOrders";
+import DashboardLibrary from "./pages/dashboard/DashboardLibrary";
+import DashboardLoyalty from "./pages/dashboard/DashboardLoyalty";
+import DashboardReviews from "./pages/dashboard/DashboardReviews";
+import DashboardNotifications from "./pages/dashboard/DashboardNotifications";
+import DashboardRecommendations from "./pages/dashboard/DashboardRecommendations";
 
 function AdminGuard({ children }) {
   const { isAuthenticated, isAdmin } = useAuth();
   if (!isAuthenticated) return <Navigate to="/login" />;
   if (!isAdmin) return <Navigate to="/" />;
+  return children;
+}
+
+function AuthGuard({ children }) {
+  const { isAuthenticated } = useAuth();
+  if (!isAuthenticated) return <Navigate to="/login" />;
   return children;
 }
 
@@ -80,6 +95,26 @@ export default function App() {
         <Route path="/admin/analytics" element={<AdminAnalytics />} />
         <Route path="/admin/reviews" element={<AdminReviews />} />
         <Route path="/admin/shipping" element={<AdminShipping />} />
+      </Route>
+
+      <Route element={<AuthGuard><DashboardLayout /></AuthGuard>}>
+        <Route path="/dashboard" element={<DashboardHome />} />
+        <Route path="/dashboard/profile" element={<DashboardProfile />} />
+        <Route path="/dashboard/orders" element={<DashboardOrders />} />
+        <Route path="/dashboard/wishlist" element={<Wishlist />} />
+        <Route path="/dashboard/cart" element={<Cart />} />
+        <Route path="/dashboard/library" element={<DashboardLibrary />} />
+        <Route path="/dashboard/coupons" element={<div className="dash-page"><div className="dash-header"><h1>Coupons & Promos</h1><p className="dash-sub">Your available discounts</p></div><div className="dash-empty"><span style={{fontSize:40}}>🏷️</span><h3>No coupons yet</h3><p>Coupons you earn will appear here.</p></div></div>} />
+        <Route path="/dashboard/reviews" element={<DashboardReviews />} />
+        <Route path="/dashboard/recommendations" element={<DashboardRecommendations />} />
+        <Route path="/dashboard/notifications" element={<DashboardNotifications />} />
+        <Route path="/dashboard/messages" element={<div className="dash-page"><div className="dash-header"><h1>Messages & Support</h1><p className="dash-sub">Your conversation history</p></div><div className="dash-empty"><span style={{fontSize:40}}>💬</span><h3>No messages yet</h3><p>Contact support to start a conversation.</p></div></div>} />
+        <Route path="/dashboard/loyalty" element={<DashboardLoyalty />} />
+        <Route path="/dashboard/payments" element={<div className="dash-page"><div className="dash-header"><h1>Payment Methods</h1><p className="dash-sub">Manage your saved payment options</p></div><div className="dash-empty"><span style={{fontSize:40}}>💳</span><h3>No payment methods</h3><p>Add a payment method at checkout.</p></div></div>} />
+        <Route path="/dashboard/security" element={<div className="dash-page"><div className="dash-header"><h1>Account Security</h1><p className="dash-sub">Manage your security settings</p></div><div className="dash-empty"><span style={{fontSize:40}}>🔒</span><h3>Security settings</h3><p>Manage your password and security preferences from your profile.</p></div></div>} />
+        <Route path="/dashboard/preferences" element={<div className="dash-page"><div className="dash-header"><h1>Reading Preferences</h1><p className="dash-sub">Customize your reading experience</p></div><div className="dash-empty"><span style={{fontSize:40}}>📖</span><h3>Coming soon</h3><p>Reading preferences will be available in a future update.</p></div></div>} />
+        <Route path="/dashboard/history" element={<div className="dash-page"><div className="dash-header"><h1>Search History</h1><p className="dash-sub">Your recent searches</p></div><div className="dash-empty"><span style={{fontSize:40}}>🔍</span><h3>No search history</h3><p>Your searches will appear here.</p></div></div>} />
+        <Route path="/dashboard/settings" element={<div className="dash-page"><div className="dash-header"><h1>Settings</h1><p className="dash-sub">Account and app preferences</p></div><div className="dash-empty"><span style={{fontSize:40}}>⚙️</span><h3>Settings</h3><p>Settings management coming soon.</p></div></div>} />
       </Route>
     </Routes>
   );

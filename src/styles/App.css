@@ -783,3 +783,273 @@ ul{list-style:none}
 /* ===== RESPONSIVE ADMIN ===== */
 @media(max-width:768px){.adm-grid.two{grid-template-columns:1fr}.adm-grid.three{grid-template-columns:1fr}.adm-stats{grid-template-columns:repeat(2,1fr)}.adm-form .form-row{grid-template-columns:1fr}}
 @media(max-width:500px){.adm-stats{grid-template-columns:1fr}}
+
+/* ===== DASHBOARD LAYOUT ===== */
+.dash-layout{display:flex;min-height:100vh;background:#0f0f1a;color:#e2e8f0}
+.dash-sidebar{width:260px;background:#1a1a2e;border-right:1px solid rgba(255,255,255,.04);display:flex;flex-direction:column;position:fixed;top:0;left:0;bottom:0;z-index:100;transition:transform .3s ease}
+.dash-sidebar-header{padding:20px 20px 12px;border-bottom:1px solid rgba(255,255,255,.04)}
+.dash-logo{display:flex;align-items:center;gap:10px;text-decoration:none;color:#e2e8f0;font-size:16px;font-weight:700}
+.dash-logo-icon{width:32px;height:32px;background:linear-gradient(135deg,#7c3aed,#a78bfa);border-radius:8px;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:16px;color:#fff}
+.dash-sidebar-nav{flex:1;overflow-y:auto;padding:12px 0}
+.dash-sidebar-nav::-webkit-scrollbar{width:4px}
+.dash-sidebar-nav::-webkit-scrollbar-track{background:transparent}
+.dash-sidebar-nav::-webkit-scrollbar-thumb{background:rgba(255,255,255,.06);border-radius:4px}
+.dash-nav-section{padding:16px 20px 6px;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:1.2px;color:rgba(255,255,255,.2)}
+.dash-nav-item{display:flex;align-items:center;gap:12px;padding:10px 20px;color:rgba(255,255,255,.5);text-decoration:none;font-size:13px;font-weight:500;transition:all .2s;border-left:3px solid transparent}
+.dash-nav-item:hover{color:#e2e8f0;background:rgba(255,255,255,.02)}
+.dash-nav-item.active{color:#a78bfa;border-left-color:#7c3aed;background:rgba(124,58,237,.06)}
+.dash-nav-icon{display:flex;align-items:center;width:20px;justify-content:center;flex-shrink:0}
+.dash-badge{margin-left:auto;background:#7c3aed;color:#fff;font-size:10px;font-weight:700;padding:1px 6px;border-radius:10px;min-width:18px;text-align:center}
+.dash-sidebar-footer{padding:16px 20px;border-top:1px solid rgba(255,255,255,.04);display:flex;align-items:center;justify-content:space-between}
+.dash-sidebar-user{display:flex;align-items:center;gap:10px}
+.dash-avatar{width:32px;height:32px;border-radius:50%;object-fit:cover;background:rgba(255,255,255,.06)}
+.dash-user-name{display:block;font-size:13px;font-weight:600;color:#e2e8f0}
+.dash-user-tier{display:block;font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:.5px}
+.dash-sidebar-pts{font-size:13px;font-weight:700;color:#a78bfa;background:rgba(124,58,237,.1);padding:4px 10px;border-radius:8px}
+.dash-overlay{display:none}
+.dash-content{flex:1;margin-left:260px;display:flex;flex-direction:column;min-height:100vh}
+.dash-content-header{display:flex;align-items:center;gap:16px;padding:16px 28px;background:rgba(26,26,46,.8);backdrop-filter:blur(12px);border-bottom:1px solid rgba(255,255,255,.04);position:sticky;top:0;z-index:50}
+.dash-menu-btn{display:none;background:none;border:none;color:#e2e8f0;font-size:22px;cursor:pointer;padding:4px 8px}
+.dash-breadcrumb{font-size:13px;color:rgba(255,255,255,.3);text-transform:capitalize}
+.dash-breadcrumb span{color:rgba(255,255,255,.6)}
+.dash-header-right{margin-left:auto;display:flex;align-items:center;gap:12px}
+.dash-store-btn{font-size:12px;color:rgba(255,255,255,.5);text-decoration:none;padding:6px 14px;border-radius:8px;border:1px solid rgba(255,255,255,.06);transition:all .2s}
+.dash-store-btn:hover{color:#e2e8f0;border-color:rgba(255,255,255,.1)}
+.dash-logout-btn{font-size:12px;background:rgba(239,68,68,.12);color:#f87171;border:none;padding:6px 14px;border-radius:8px;cursor:pointer;font-weight:500;transition:all .2s}
+.dash-logout-btn:hover{background:rgba(239,68,68,.2)}
+.dash-content-body{padding:28px;flex:1}
+
+/* ===== DASHBOARD GENERAL ===== */
+.dash-page{max-width:1040px}
+.dash-header{display:flex;align-items:flex-start;justify-content:space-between;gap:16px;margin-bottom:24px}
+.dash-header h1{font-size:22px;font-weight:700;color:#e2e8f0;margin:0}
+.dash-sub{font-size:13px;color:rgba(255,255,255,.4);margin:4px 0 0}
+.dash-toast{background:rgba(74,222,128,.12);color:#4ade80;padding:10px 16px;border-radius:10px;font-size:13px;font-weight:500;margin-bottom:16px;border:1px solid rgba(74,222,128,.15)}
+.dash-empty{text-align:center;padding:48px 24px}
+.dash-empty h3{font-size:16px;font-weight:600;color:rgba(255,255,255,.4);margin:12px 0 4px}
+.dash-empty p{font-size:13px;color:rgba(255,255,255,.2)}
+.dash-link{font-size:12px;color:#a78bfa;text-decoration:none;font-weight:500}
+
+/* ===== DASHBOARD STATS GRID ===== */
+.dash-stats-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-bottom:24px}
+.dash-stat-card{background:rgba(255,255,255,.02);border:1px solid rgba(255,255,255,.04);border-radius:14px;padding:20px;display:flex;align-items:center;gap:16px}
+.dash-stat-icon{width:44px;height:44px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0}
+.dash-stat-icon.purple{background:rgba(124,58,237,.12)}
+.dash-stat-icon.blue{background:rgba(59,130,246,.12)}
+.dash-stat-icon.amber{background:rgba(245,158,11,.12)}
+.dash-stat-icon.green{background:rgba(74,222,128,.12)}
+.dash-stat-body{display:flex;flex-direction:column}
+.dash-stat-num{font-size:22px;font-weight:800;color:#e2e8f0;line-height:1.2}
+.dash-stat-label{font-size:11px;color:rgba(255,255,255,.4);text-transform:uppercase;letter-spacing:.5px;font-weight:500}
+
+/* ===== DASHBOARD GRID ===== */
+.dash-grid{display:grid;gap:20px;margin-bottom:24px}
+.dash-grid.two{grid-template-columns:1fr 1fr}
+.dash-grid.three{grid-template-columns:repeat(3,1fr)}
+.dash-card{background:rgba(255,255,255,.02);border:1px solid rgba(255,255,255,.04);border-radius:14px;padding:20px}
+.dash-card-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:16px}
+.dash-card-header h3{font-size:15px;font-weight:600;color:#e2e8f0;margin:0}
+
+/* ===== DASHBOARD CHART ===== */
+.dash-chart{display:flex;align-items:flex-end;gap:6px;height:160px;padding:0 4px}
+.dash-chart-bar{flex:1;border-radius:4px 4px 0 0;position:relative;min-height:4px;transition:height .6s ease}
+.dash-bar-tip{position:absolute;top:-20px;left:50%;transform:translateX(-50%);font-size:10px;color:rgba(255,255,255,.6);white-space:nowrap;font-weight:500}
+.dash-chart-labels{display:flex;gap:6px;margin-top:8px}
+.dash-chart-labels span{flex:1;text-align:center;font-size:10px;color:rgba(255,255,255,.2)}
+
+/* ===== DASHBOARD CHALLENGE ===== */
+.dash-challenge{text-align:center;padding:8px 0}
+.dash-challenge-circle{position:relative;width:100px;height:100px;margin:0 auto 12px}
+.dash-challenge-center{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);text-align:center}
+.dash-challenge-num{display:block;font-size:24px;font-weight:800;color:#e2e8f0;line-height:1}
+.dash-challenge-of{font-size:10px;color:rgba(255,255,255,.3)}
+.dash-challenge-label{font-size:13px;font-weight:600;color:rgba(255,255,255,.6);margin:0 0 4px}
+.dash-challenge-sub{font-size:11px;color:rgba(255,255,255,.3);margin:0}
+
+/* ===== DASHBOARD BOOK LIST ===== */
+.dash-book-list{display:flex;flex-direction:column;gap:8px}
+.dash-book-item{display:flex;align-items:center;gap:12px;padding:8px 12px;border-radius:10px;text-decoration:none;color:#e2e8f0;transition:background .2s}
+.dash-book-item:hover{background:rgba(255,255,255,.02)}
+.dash-book-item img{width:36px;height:54px;object-fit:cover;border-radius:4px;flex-shrink:0}
+.dash-book-info{display:flex;flex-direction:column;min-width:0}
+.dash-book-title{font-size:13px;font-weight:500;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.dash-book-author{font-size:11px;color:rgba(255,255,255,.3)}
+
+/* ===== DASHBOARD PROMO ===== */
+.dash-promo-banner{background:linear-gradient(135deg,rgba(124,58,237,.12),rgba(168,85,247,.06));border:1px solid rgba(124,58,237,.12);border-radius:14px;padding:24px 28px;display:flex;align-items:center;justify-content:space-between;gap:20px;margin-bottom:24px}
+.dash-promo-tag{display:inline-block;background:rgba(245,158,11,.15);color:#fbbf24;font-size:11px;font-weight:700;padding:3px 10px;border-radius:6px;text-transform:uppercase;letter-spacing:.5px;margin-bottom:8px}
+.dash-promo-content h2{font-size:20px;font-weight:700;color:#e2e8f0;margin:0 0 4px}
+.dash-promo-content p{font-size:13px;color:rgba(255,255,255,.5);margin:0}
+.dash-promo-content strong{color:#e2e8f0}
+.dash-promo-btn{background:#7c3aed;color:#fff;padding:10px 24px;border-radius:10px;text-decoration:none;font-weight:600;font-size:14px;white-space:nowrap;transition:background .2s}
+.dash-promo-btn:hover{background:#6d28d9}
+
+/* ===== DASHBOARD QUICK ACTIONS ===== */
+.dash-quick-actions{display:flex;gap:12px;flex-wrap:wrap}
+.dash-qa-btn{display:flex;align-items:center;gap:8px;background:rgba(255,255,255,.02);border:1px solid rgba(255,255,255,.04);border-radius:12px;padding:12px 18px;color:rgba(255,255,255,.6);text-decoration:none;font-size:13px;font-weight:500;transition:all .2s}
+.dash-qa-btn:hover{background:rgba(255,255,255,.04);color:#e2e8f0;border-color:rgba(255,255,255,.08)}
+
+/* ===== DASHBOARD WELCOME ===== */
+.dash-welcome{display:flex;align-items:flex-start;justify-content:space-between;gap:16px;margin-bottom:24px}
+.dash-welcome h1{font-size:24px;font-weight:700;color:#e2e8f0;margin:0}
+.dash-welcome p{font-size:14px;color:rgba(255,255,255,.4);margin:4px 0 0}
+.dash-tier-badge{display:flex;align-items:center;gap:10px;border:1px solid;border-radius:12px;padding:12px 16px;flex-shrink:0}
+.dash-tier-icon{font-size:24px}
+.dash-tier-name{display:block;font-size:14px;font-weight:700;text-transform:uppercase;letter-spacing:.5px}
+.dash-tier-label{display:block;font-size:10px;color:rgba(255,255,255,.3);text-transform:uppercase;letter-spacing:.5px}
+
+/* ===== DASHBOARD TABS ===== */
+.dash-tabs{display:flex;gap:4px;margin-bottom:20px;flex-wrap:wrap}
+.dash-tab{background:rgba(255,255,255,.02);border:1px solid rgba(255,255,255,.04);padding:8px 16px;border-radius:8px;font-size:12px;font-weight:500;color:rgba(255,255,255,.4);cursor:pointer;transition:all .2s}
+.dash-tab:hover{color:#e2e8f0;background:rgba(255,255,255,.04)}
+.dash-tab.active{background:rgba(124,58,237,.12);border-color:rgba(124,58,237,.15);color:#a78bfa}
+
+/* ===== DASHBOARD ORDER LIST ===== */
+.dash-order-list{display:flex;flex-direction:column;gap:12px}
+.dash-order-card{background:rgba(255,255,255,.02);border:1px solid rgba(255,255,255,.04);border-radius:12px;padding:16px 20px}
+.dash-order-top{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:8px}
+.dash-order-id{font-size:13px;font-weight:600;color:#e2e8f0}
+.dash-order-date{display:block;font-size:11px;color:rgba(255,255,255,.3);margin-top:2px}
+.dash-order-total{font-size:16px;font-weight:700;color:#a78bfa}
+.dash-order-mid{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px}
+.dash-order-mid span{font-size:12px;color:rgba(255,255,255,.4)}
+.dash-track-status{display:flex;align-items:center;gap:6px;font-size:12px;font-weight:600}
+.dash-dot{width:8px;height:8px;border-radius:50%;display:inline-block}
+.dash-order-actions{display:flex;gap:8px;flex-wrap:wrap}
+.dash-order-actions .dash-btn.tiny{font-size:11px;padding:5px 12px}
+
+/* ===== DASHBOARD NOTIFICATIONS ===== */
+.dash-notif-list{display:flex;flex-direction:column;gap:4px}
+.dash-notif-item{display:flex;align-items:flex-start;gap:14px;padding:16px 18px;border-radius:12px;cursor:pointer;transition:background .2s}
+.dash-notif-item:hover{background:rgba(255,255,255,.02)}
+.dash-notif-item.unread{background:rgba(124,58,237,.04);border-left:3px solid #7c3aed}
+.dash-notif-icon{font-size:20px;flex-shrink:0;margin-top:2px}
+.dash-notif-body{flex:1;min-width:0}
+.dash-notif-body strong{display:block;font-size:13px;color:#e2e8f0;margin-bottom:4px}
+.dash-notif-body p{font-size:12px;color:rgba(255,255,255,.4);margin:0 0 4px;line-height:1.4}
+.dash-notif-date{font-size:11px;color:rgba(255,255,255,.2)}
+.dash-notif-dot{width:8px;height:8px;border-radius:50%;background:#7c3aed;flex-shrink:0;margin-top:6px}
+
+/* ===== DASHBOARD REVIEWS ===== */
+.dash-review-list{display:flex;flex-direction:column;gap:12px}
+.dash-review-card{background:rgba(255,255,255,.02);border:1px solid rgba(255,255,255,.04);border-radius:12px;padding:16px 20px}
+.dash-review-top{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:8px}
+.dash-review-top strong{font-size:14px;color:#e2e8f0}
+.dash-review-rating{display:block;font-size:12px;margin-top:4px}
+.dash-review-status{font-size:11px;padding:2px 8px;border-radius:6px;background:rgba(245,158,11,.12);color:#fbbf24;font-weight:500;text-transform:capitalize}
+.dash-review-text{font-size:13px;color:rgba(255,255,255,.5);line-height:1.6;margin:8px 0;font-style:italic}
+.dash-review-meta{display:flex;justify-content:space-between;align-items:center;font-size:11px;color:rgba(255,255,255,.2)}
+.dash-review-actions{display:flex;gap:8px}
+
+/* ===== DASHBOARD LIBRARY ===== */
+.dash-library-card{padding:0;overflow:hidden}
+.dash-library-cover{width:100%;height:180px;object-fit:cover;display:block}
+.dash-library-body{padding:16px}
+.dash-library-body h3{font-size:14px;font-weight:600;color:#e2e8f0;margin:0 0 4px}
+.dash-library-body p{font-size:12px;color:rgba(255,255,255,.3);margin:0 0 12px}
+.dash-library-actions{display:flex;gap:8px;margin-bottom:8px}
+.dash-library-meta{display:flex;gap:16px;font-size:11px;color:rgba(255,255,255,.2)}
+
+/* ===== DASHBOARD PROGRESS ===== */
+.dash-progress-wrap{display:flex;align-items:center;gap:10px}
+.dash-progress-bar{flex:1;height:6px;background:rgba(255,255,255,.04);border-radius:4px;overflow:hidden}
+.dash-progress-fill{height:100%;border-radius:4px;transition:width .6s ease}
+.dash-progress-text{font-size:11px;font-weight:600;color:rgba(255,255,255,.4);white-space:nowrap}
+
+/* ===== DASHBOARD RECOMMENDATIONS ===== */
+.dash-rec-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.dash-rec-card{background:rgba(255,255,255,.02);border:1px solid rgba(255,255,255,.04);border-radius:12px;overflow:hidden;text-decoration:none;color:#e2e8f0;transition:all .2s}
+.dash-rec-card:hover{background:rgba(255,255,255,.04);border-color:rgba(255,255,255,.08);transform:translateY(-2px)}
+.dash-rec-card img{width:100%;height:160px;object-fit:cover;display:block}
+.dash-rec-body{padding:14px}
+.dash-rec-body h3{font-size:13px;font-weight:600;margin:0 0 4px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.dash-rec-body p{font-size:11px;color:rgba(255,255,255,.4);margin:0 0 8px}
+.dash-rec-footer{display:flex;justify-content:space-between;align-items:center}
+.dash-rec-footer strong{font-size:14px;color:#a78bfa}
+.dash-rec-rating{font-size:11px;color:rgba(255,255,255,.4)}
+
+/* ===== DASHBOARD LOYALTY ===== */
+.dash-loyalty-hero{background:linear-gradient(135deg,rgba(124,58,237,.08),rgba(168,85,247,.04));border:1px solid rgba(124,58,237,.08);border-radius:16px;padding:28px;display:flex;align-items:center;justify-content:space-between;gap:20px;margin-bottom:24px}
+.dash-loyalty-level{display:flex;align-items:center;gap:16px}
+.dash-loyalty-level h2{font-size:20px;font-weight:700;margin:0 0 4px}
+.dash-loyalty-level p{font-size:13px;color:rgba(255,255,255,.5);margin:0}
+.dash-loyalty-points{text-align:center}
+.dash-loyalty-num{display:block;font-size:36px;font-weight:800;color:#a78bfa;line-height:1}
+.dash-loyalty-label{font-size:11px;color:rgba(255,255,255,.3);text-transform:uppercase;letter-spacing:1px;font-weight:600}
+
+/* ===== DASHBOARD LEVELS ===== */
+.dash-levels-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.dash-level-card{position:relative;background:rgba(255,255,255,.02);border:1px solid;border-radius:14px;padding:24px;text-align:center}
+.dash-level-card.current{background:rgba(255,255,255,.04)}
+.dash-level-card h3{font-size:16px;font-weight:700;margin:8px 0 4px}
+.dash-current-badge{display:inline-block;background:#7c3aed;color:#fff;font-size:10px;font-weight:700;padding:3px 12px;border-radius:20px;margin-top:12px}
+
+/* ===== DASHBOARD REDEEM ===== */
+.dash-redeem{padding:4px 0}
+.dash-referral-box{display:flex;align-items:center;gap:12px;background:rgba(255,255,255,.02);border:1px solid rgba(255,255,255,.04);border-radius:10px;padding:12px 16px}
+.dash-ref-code{font-size:16px;font-weight:700;color:#a78bfa;letter-spacing:2px;flex:1;font-family:monospace}
+
+/* ===== DASHBOARD FORM ===== */
+.dash-form-group{margin-bottom:14px}
+.dash-form-group label{display:block;font-size:12px;font-weight:500;color:rgba(255,255,255,.5);margin-bottom:5px}
+.dash-form-group input,.dash-form-group select,.dash-form-group textarea{width:100%;padding:10px 12px;border-radius:8px;border:1px solid rgba(255,255,255,.06);background:rgba(255,255,255,.02);color:#e2e8f0;font-size:13px;outline:none;box-sizing:border-box;transition:border-color .2s}
+.dash-form-group input:focus,.dash-form-group select:focus,.dash-form-group textarea:focus{border-color:rgba(124,58,237,.3)}
+.dash-form-group input:disabled{opacity:.3;cursor:not-allowed}
+.dash-form-row{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+
+/* ===== DASHBOARD ADDRESSES ===== */
+.dash-addr-form{padding:4px 0;margin-bottom:16px}
+.dash-addr-list{display:flex;flex-direction:column;gap:8px}
+.dash-addr-item{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:12px 16px;background:rgba(255,255,255,.02);border:1px solid rgba(255,255,255,.04);border-radius:10px}
+.dash-addr-item.default{border-color:rgba(74,222,128,.15)}
+.dash-addr-info strong{display:block;font-size:13px;color:#e2e8f0;margin-bottom:2px}
+.dash-addr-info p{font-size:12px;color:rgba(255,255,255,.4);margin:0}
+.dash-addr-actions{display:flex;gap:8px;align-items:center;flex-shrink:0}
+.dash-default-badge{font-size:10px;color:#4ade80;font-weight:600;background:rgba(74,222,128,.1);padding:4px 10px;border-radius:6px}
+
+/* ===== DASHBOARD BUTTONS ===== */
+.dash-btn{font-size:12px;font-weight:500;padding:8px 16px;border-radius:8px;border:none;cursor:pointer;transition:all .2s;display:inline-flex;align-items:center;gap:6px}
+.dash-btn.primary{background:#7c3aed;color:#fff}
+.dash-btn.primary:hover{background:#6d28d9}
+.dash-btn.primary:disabled{opacity:.3;cursor:not-allowed}
+.dash-btn.sm{font-size:11px;padding:6px 14px}
+.dash-btn.tiny{font-size:11px;padding:5px 12px;background:rgba(255,255,255,.04);color:rgba(255,255,255,.6);border-radius:6px}
+.dash-btn.tiny:hover{background:rgba(255,255,255,.08);color:#e2e8f0}
+.dash-btn.tiny.outline{background:transparent;border:1px solid rgba(255,255,255,.06)}
+.dash-btn-sm{font-size:11px;padding:5px 12px;border-radius:6px;border:1px solid rgba(255,255,255,.06);background:transparent;color:rgba(255,255,255,.5);cursor:pointer;transition:all .2s;font-weight:500}
+.dash-btn-sm:hover{color:#e2e8f0;border-color:rgba(255,255,255,.1)}
+.dash-btn-tiny{font-size:11px;padding:4px 10px;border-radius:6px;border:1px solid rgba(255,255,255,.06);background:transparent;color:rgba(255,255,255,.4);cursor:pointer;transition:all .2s}
+.dash-btn-tiny:hover{color:#e2e8f0;border-color:rgba(255,255,255,.1)}
+.dash-btn-tiny.danger{color:#f87171}
+.dash-btn-tiny.danger:hover{background:rgba(239,68,68,.1);border-color:rgba(239,68,68,.2)}
+
+/* ===== DASHBOARD RESPONSIVE ===== */
+@media(max-width:1024px){.dash-stats-grid{grid-template-columns:repeat(2,1fr)}.dash-grid.two{grid-template-columns:1fr}.dash-grid.three{grid-template-columns:repeat(2,1fr)}.dash-rec-grid{grid-template-columns:repeat(2,1fr)}.dash-levels-grid{grid-template-columns:1fr}}
+@media(max-width:768px){.dash-sidebar{transform:translateX(-100%)}.dash-sidebar.open{transform:translateX(0)}.dash-overlay{display:block;position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,.5);z-index:99}.dash-content{margin-left:0}.dash-menu-btn{display:block}.dash-content-header{padding:12px 16px}.dash-content-body{padding:16px}.dash-stats-grid{grid-template-columns:repeat(2,1fr);gap:12px}.dash-stat-card{padding:14px}.dash-rec-grid{grid-template-columns:repeat(2,1fr)}.dash-levels-grid{grid-template-columns:1fr}.dash-loyalty-hero{flex-direction:column;text-align:center;padding:20px}.dash-loyalty-level{flex-direction:column}.dash-welcome{flex-direction:column}.dash-promo-banner{flex-direction:column;text-align:center}.dash-form-row{grid-template-columns:1fr}}
+@media(max-width:500px){.dash-stats-grid{grid-template-columns:1fr}.dash-grid.three{grid-template-columns:1fr}.dash-rec-grid{grid-template-columns:1fr}.dash-sidebar{width:100%}.dash-header{flex-direction:column}.dash-quick-actions{flex-direction:column}.dash-addr-item{flex-direction:column;align-items:flex-start}}
+
+/* ===== BOOK DETAIL REVIEWS ===== */
+.reviews-section{margin-top:48px}
+.reviews-title{font-size:24px;font-weight:700;margin-bottom:20px;color:#1e293b}
+.review-list{display:flex;flex-direction:column;gap:16px;margin-bottom:32px}
+.review-card{background:#fff;border-radius:12px;padding:20px;border:1px solid #e2e8f0}
+.review-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;gap:8px;flex-wrap:wrap}
+.review-user{font-size:15px;font-weight:600;color:#1e293b}
+.review-date{font-size:12px;color:#94a3b8;margin-left:8px}
+.review-stars{color:#f59e0b;font-weight:600;white-space:nowrap;font-size:14px}
+.review-text{font-size:14px;color:#475569;line-height:1.6;font-style:italic}
+.review-form{background:#fff;border-radius:12px;padding:24px;border:1px solid #e2e8f0;max-width:600px}
+.review-form-title{font-size:16px;font-weight:600;margin-bottom:16px;color:#1e293b}
+.review-success{background:#f0fdf4;color:#16a34a;padding:10px 14px;border-radius:8px;margin-bottom:12px;font-size:14px}
+.review-rating-label{display:block;font-size:14px;font-weight:500;margin-bottom:6px;color:#475569}
+.review-stars-input{display:flex;gap:4px;margin-bottom:12px}
+.review-star{cursor:pointer;transition:color .2s;background:none;border:none;padding:0;line-height:1}
+.review-star-label{display:block;font-size:14px;font-weight:500;margin-bottom:6px;color:#475569}
+.review-textarea{width:100%;box-sizing:border-box;padding:12px;border-radius:8px;border:1px solid #e2e8f0;font-size:14px;font-family:inherit;resize:vertical}
+.review-textarea:focus{outline:none;border-color:#7c3aed}
+.review-login-prompt{color:#94a3b8}
+.review-login-link{color:#7c3aed;font-weight:600}
+@media(max-width:768px){.review-card{padding:16px}.review-header{flex-direction:column;align-items:flex-start}.review-form{padding:16px}.reviews-title{font-size:20px}}
+
+/* ===== 360px EXTRA SMALL ===== */
+@media(max-width:360px){.container{padding:0 12px}.dash-content-body{padding:12px}.dash-stats-grid{grid-template-columns:1fr;gap:8px}.dash-stat-card{padding:12px}.dash-stat-num{font-size:18px}.dash-welcome h1{font-size:18px}.dash-content-header{padding:10px 12px;flex-wrap:wrap;gap:8px}.dash-header-right{width:100%;justify-content:flex-end}.book-detail{grid-template-columns:1fr!important}.books-grid{grid-template-columns:1fr}.hero h1{font-size:24px!important}.hero p{font-size:14px!important}.features-grid,.values-grid{grid-template-columns:1fr!important}.footer-grid{grid-template-columns:1fr!important}.navbar-top-bar{display:none!important}.book-detail-image img{max-height:280px;width:auto;margin:0 auto}.book-card-image{height:200px!important}.cart-header{flex-direction:column;gap:8px}.cart-item{grid-template-columns:1fr!important;text-align:center}.quantity-selector{justify-content:center}.auth-card{padding:32px 20px!important}.dash-promo-banner{padding:16px}.dash-promo-content h2{font-size:16px}.dash-btn,.dash-btn.sm,.dash-btn.tiny{font-size:10px;padding:4px 10px}}

@@ -11,9 +11,12 @@
   },
   "dependencies": {
     "@react-oauth/google": "^0.13.5",
+    "libsodium-wrappers": "^0.8.4",
     "react": "^19.2.7",
     "react-dom": "^19.2.7",
-    "react-router-dom": "^7.18.1"
+    "react-router-dom": "^7.18.1",
+    "tweetnacl": "^1.0.3",
+    "tweetnacl-util": "^0.15.1"
   },
   "devDependencies": {
     "@types/react": "^19.2.17",

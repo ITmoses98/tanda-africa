@@ -146,47 +146,47 @@ export default function BookDetail() {
           </div>
         </div>
 
-        <section style={{ marginTop: 48 }}>
-          <h2 style={{ fontSize: 24, fontWeight: 700, marginBottom: 20 }}>Customer Reviews</h2>
+        <section className="reviews-section">
+          <h2 className="reviews-title">Customer Reviews</h2>
           {reviews.length > 0 ? (
-            <div style={{ display: "flex", flexDirection: "column", gap: 16, marginBottom: 32 }}>
+            <div className="review-list">
               {reviews.map(r => (
-                <div key={r.id} style={{ background: "#fff", borderRadius: 12, padding: 20, border: "1px solid #e2e8f0" }}>
-                  <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 8 }}>
+                <div key={r.id} className="review-card">
+                  <div className="review-header">
                     <div>
-                      <strong style={{ fontSize: 15 }}>{r.user}</strong>
-                      <span style={{ fontSize: 12, color: "#94a3b8", marginLeft: 8 }}>{r.date}</span>
+                      <span className="review-user">{r.user}</span>
+                      <span className="review-date">{r.date}</span>
                     </div>
-                    <span style={{ color: "#f59e0b", fontWeight: 600 }}>{'⭐'.repeat(r.rating)}{'☆'.repeat(5 - r.rating)}</span>
+                    <span className="review-stars">{'⭐'.repeat(r.rating)}{'☆'.repeat(5 - r.rating)}</span>
                   </div>
-                  <p style={{ fontSize: 14, color: "#475569", lineHeight: 1.6 }}>"{r.text}"</p>
+                  <p className="review-text">"{r.text}"</p>
                 </div>
               ))}
             </div>
           ) : (
-            <p style={{ color: "#94a3b8", marginBottom: 24 }}>No reviews yet. Be the first to review!</p>
+            <p className="review-login-prompt" style={{ marginBottom: 24 }}>No reviews yet. Be the first to review!</p>
           )}
 
           {isAuthenticated ? (
-            <form onSubmit={handleReviewSubmit} style={{ background: "#fff", borderRadius: 12, padding: 24, border: "1px solid #e2e8f0" }}>
-              <h3 style={{ fontSize: 16, fontWeight: 600, marginBottom: 16 }}>Write a Review</h3>
-              {reviewSubmitted && <div style={{ background: "#f0fdf4", color: "#16a34a", padding: "10px 14px", borderRadius: 8, marginBottom: 12, fontSize: 14 }}>✓ Review submitted for moderation!</div>}
-              <div style={{ marginBottom: 12 }}>
-                <label style={{ display: "block", fontSize: 14, fontWeight: 500, marginBottom: 6 }}>Rating</label>
-                <div style={{ display: "flex", gap: 4 }}>
+            <form onSubmit={handleReviewSubmit} className="review-form">
+              <h3 className="review-form-title">Write a Review</h3>
+              {reviewSubmitted && <div className="review-success">✓ Review submitted for moderation!</div>}
+              <div className="review-stars-input">
+                <label className="review-star-label">Rating</label>
+                <div style={{ display: "flex", gap: 4, marginBottom: 12 }}>
                   {[1, 2, 3, 4, 5].map(r => (
-                    <span key={r} onClick={() => setReviewRating(r)} style={{ fontSize: 28, cursor: "pointer", color: r <= reviewRating ? "#f59e0b" : "#cbd5e1", transition: "color .2s" }}>★</span>
+                    <span key={r} onClick={() => setReviewRating(r)} className="review-star" style={{ fontSize: 28, color: r <= reviewRating ? "#f59e0b" : "#cbd5e1" }}>★</span>
                   ))}
                 </div>
               </div>
               <div className="form-group">
-                <label style={{ display: "block", fontSize: 14, fontWeight: 500, marginBottom: 6 }}>Your Review</label>
-                <textarea rows="3" value={reviewText} onChange={e => setReviewText(e.target.value)} required placeholder="Share your thoughts about this book..." style={{ width: "100%", padding: 12, borderRadius: 8, border: "1px solid #e2e8f0", fontSize: 14 }} />
+                <label className="review-star-label">Your Review</label>
+                <textarea className="review-textarea" rows="3" value={reviewText} onChange={e => setReviewText(e.target.value)} required placeholder="Share your thoughts about this book..." />
               </div>
               <button type="submit" className="btn btn-primary">Submit Review</button>
             </form>
           ) : (
-            <p style={{ color: "#94a3b8" }}><Link to="/login" style={{ color: "#7c3aed", fontWeight: 600 }}>Sign in</Link> to write a review</p>
+            <p className="review-login-prompt"><Link to="/login" className="review-login-link">Sign in</Link> to write a review</p>
           )}
         </section>
 
