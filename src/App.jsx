@@ -1,4 +1,5 @@
-import { Routes, Route, Navigate } from "react-router-dom";
+import { useEffect } from "react";
+import { Routes, Route, Navigate, useLocation } from "react-router-dom";
 import { useAuth } from "./context/AuthContext";
 import Layout from "./components/Layout";
 import AdminLayout from "./components/AdminLayout";
@@ -56,9 +57,17 @@ function AuthGuard({ children }) {
   return children;
 }
 
+function ScrollToTop() {
+  const { pathname } = useLocation();
+  useEffect(() => { window.scrollTo(0, 0); }, [pathname]);
+  return null;
+}
+
 export default function App() {
   return (
-    <Routes>
+    <>
+      <ScrollToTop />
+      <Routes>
       <Route element={<Layout />}>
         <Route path="/" element={<Home />} />
         <Route path="/catalog" element={<Catalog />} />
@@ -117,5 +126,6 @@ export default function App() {
         <Route path="/dashboard/settings" element={<div className="dash-page"><div className="dash-header"><h1>Settings</h1><p className="dash-sub">Account and app preferences</p></div><div className="dash-empty"><span style={{fontSize:40}}>⚙️</span><h3>Settings</h3><p>Settings management coming soon.</p></div></div>} />
       </Route>
     </Routes>
+    </>
   );
 }
