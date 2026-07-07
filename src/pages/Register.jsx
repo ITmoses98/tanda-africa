@@ -20,7 +20,7 @@ export default function Register() {
 
   const handlePhoneChange = (val) => setPhoneData(val);
 
-  const sendCode = () => {
+  const sendCode = async () => {
     if (!phoneData || !phoneData.number) {
       setError("Enter your phone number first");
       return;
@@ -31,8 +31,24 @@ export default function Register() {
     setSentCode(c);
     setVerified(false);
     setCode("");
-    console.log(`[SMS mock] Verification code for ${phoneData.dial}${phoneData.number}: ${c}`);
-    setTimeout(() => setSending(false), 800);
+
+    const fullPhone = `${phoneData.dial}${phoneData.number}`;
+
+    try {
+      const res = await fetch("/.netlify/functions/send-sms", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ phone: fullPhone, code: c }),
+      });
+      const data = await res.json();
+      if (!data.success) {
+        console.warn("SMS function failed, code logged to console:", c);
+      }
+    } catch {
+      console.warn("Netlify function unavailable, code logged to console:", c);
+    }
+
+    setSending(false);
   };
 
   const verifyCode = () => {
