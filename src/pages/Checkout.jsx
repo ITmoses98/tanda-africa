@@ -47,8 +47,13 @@ export default function Checkout() {
 
   return (
     <div className="checkout-page">
+      <div className="page-hero">
+        <div className="container">
+          <h1>Checkout</h1>
+          <p>Complete your purchase in three easy steps</p>
+        </div>
+      </div>
       <div className="container">
-        <h1>Checkout</h1>
         <div className="checkout-steps">
           <div className={`step ${step >= 1 ? "active" : ""}`}><span>1</span> Shipping</div>
           <div className={`step ${step >= 2 ? "active" : ""}`}><span>2</span> Payment</div>

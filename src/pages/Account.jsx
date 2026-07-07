@@ -12,17 +12,18 @@ export default function Account() {
 
   return (
     <div className="account-page">
-      <div className="container">
-        <div className="account-header">
-          <div className="account-avatar">
-            <img src={user.avatar} alt={user.name} />
-            <div>
+      <div className="page-hero">
+        <div className="container">
+          <div className="account-avatar" style={{display:"flex",alignItems:"center",justifyContent:"center",gap:16,marginBottom:8}}>
+            <img src={user.avatar} alt={user.name} style={{width:56,height:56,borderRadius:"50%",objectFit:"cover",border:"3px solid #fff",boxShadow:"0 2px 8px rgba(0,0,0,.1)"}} />
+            <div style={{textAlign:"left"}}>
               <h1>Welcome, {user.name}</h1>
               <p>{user.email}</p>
             </div>
           </div>
         </div>
-
+      </div>
+      <div className="container">
         <div className="account-grid">
           <div className="account-card">
             <h3>📦 Recent Orders</h3>

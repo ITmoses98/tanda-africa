@@ -93,12 +93,14 @@ export default function Cart() {
   }
 
   return (
-    <div className="cart-page">
-      <div className="container">
-        <div className="cart-header">
-          <h1>Shopping Cart ({items.length} item{items.length !== 1 ? "s" : ""})</h1>
-          <button className="btn-link" onClick={clearCart}>Clear Cart</button>
+      <div className="cart-page">
+      <div className="page-hero">
+        <div className="container">
+          <h1>Shopping Cart</h1>
+          <p>{items.length} item{items.length !== 1 ? "s" : ""} in your cart</p>
         </div>
+      </div>
+      <div className="container">
 
         <div className="cart-layout">
           <div className="cart-items" style={{overflow:"hidden",borderRadius:"12px"}}>

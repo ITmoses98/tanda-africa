@@ -25,9 +25,14 @@ export default function Wishlist() {
 
   return (
     <div className="wishlist-page">
+      <div className="page-hero">
+        <div className="container">
+          <h1>My Wishlist</h1>
+          <p>{wishlistBooks.length} saved book{wishlistBooks.length !== 1 ? "s" : ""}</p>
+        </div>
+      </div>
       <div className="container">
-        <div className="wishlist-header">
-          <h1>My Wishlist ({wishlistBooks.length})</h1>
+        <div style={{display:"flex",justifyContent:"flex-end",marginBottom:16}}>
           <button className="btn-link" onClick={clearWishlist}>Clear All</button>
         </div>
         <div className="books-grid">
