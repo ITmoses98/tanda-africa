@@ -11,6 +11,14 @@ export default function PhoneInput({ value = "", onChange, required, defaultCode
   const [number, setNumber] = useState(value);
   const ref = useRef(null);
   const inputRef = useRef(null);
+  const initial = useRef(true);
+
+  useEffect(() => {
+    if (initial.current) {
+      initial.current = false;
+      if (onChange) onChange({ code: defaultCode, dial: getDialByCode(defaultCode), number: "" });
+    }
+  }, []);
 
   const selected = countryCodes.find((c) => c.code === code);
   const filtered = query

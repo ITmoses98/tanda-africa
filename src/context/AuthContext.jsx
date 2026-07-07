@@ -70,12 +70,12 @@ export function AuthProvider({ children }) {
 
   const logout = () => dispatch({ type: "LOGOUT" });
 
-  const register = (name, email, password) => {
+  const register = (name, email, password, phone = "") => {
     const user = {
       id: Date.now(),
       name,
       email,
-      phone: "",
+      phone,
       avatar: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=100",
       addresses: [],
       orders: [],
