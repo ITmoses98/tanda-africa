@@ -7,6 +7,7 @@ import { AuthProvider } from "./context/AuthContext";
 import { WishlistProvider } from "./context/WishlistContext";
 import { BookProvider } from "./context/BookContext";
 import { AdminProvider } from "./context/AdminContext";
+import { ThemeProvider } from "./context/ThemeContext";
 import App from "./App";
 import "./styles/App.css";
 
@@ -23,19 +24,21 @@ function Root({ children }) {
 createRoot(document.getElementById("root")).render(
   <StrictMode>
     <BrowserRouter>
-      <Root>
-        <AuthProvider>
-          <AdminProvider>
-            <BookProvider>
-              <CartProvider>
-                <WishlistProvider>
-                  <App />
-                </WishlistProvider>
-              </CartProvider>
-            </BookProvider>
-          </AdminProvider>
-        </AuthProvider>
-      </Root>
+      <ThemeProvider>
+        <Root>
+          <AuthProvider>
+            <AdminProvider>
+              <BookProvider>
+                <CartProvider>
+                  <WishlistProvider>
+                    <App />
+                  </WishlistProvider>
+                </CartProvider>
+              </BookProvider>
+            </AdminProvider>
+          </AuthProvider>
+        </Root>
+      </ThemeProvider>
     </BrowserRouter>
   </StrictMode>
 );
