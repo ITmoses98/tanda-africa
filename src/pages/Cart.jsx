@@ -1,6 +1,63 @@
-import { useState } from "react";
+import { useState, useRef } from "react";
 import { Link } from "react-router-dom";
 import { useCart } from "../context/CartContext";
+import { useSwipeable } from "react-swipeable";
+
+function SwipeableCartItem({ item, onRemove, UpdateQty }) {
+  const [swiping, setSwiping] = useState(false);
+  const [offsetX, setOffsetX] = useState(0);
+  const threshold = window.innerWidth < 768 ? 60 : 999;
+
+  const handlers = useSwipeable({
+    onSwiping: (e) => {
+      if (e.deltaX < -20) {
+        setSwiping(true);
+        setOffsetX(Math.max(e.deltaX, -threshold));
+      }
+    },
+    onSwipedLeft: () => {
+      if (offsetX <= -threshold * 0.5) {
+        onRemove(item.id);
+      }
+      setSwiping(false);
+      setOffsetX(0);
+    },
+    onSwiped: () => {
+      setSwiping(false);
+      setOffsetX(0);
+    },
+    preventScrollOnSwipe: false,
+    trackMouse: false,
+    delta: 10,
+  });
+
+  return (
+    <div className="swipe-item-wrap" {...handlers}>
+      <div className="swipe-delete-bg">
+        <span>Delete</span>
+      </div>
+      <div className={`cart-item${swiping ? " swipe-item" : ""}`} style={swiping ? { transform: `translateX(${offsetX}px)` } : undefined}>
+        <Link to={`/book/${item.id}`} className="cart-item-img">
+          <img src={item.cover} alt={item.title} />
+        </Link>
+        <div className="cart-item-info">
+          <Link to={`/book/${item.id}`} className="cart-item-title">{item.title}</Link>
+          <p className="cart-item-author">by {item.author}</p>
+          <p className="cart-item-price">${item.price.toFixed(2)} each</p>
+        </div>
+        <div className="cart-item-qty">
+          <button onClick={() => UpdateQty(item.id, item.quantity - 1)} disabled={item.quantity <= 1}>−</button>
+          <span>{item.quantity}</span>
+          <button onClick={() => UpdateQty(item.id, item.quantity + 1)}>+</button>
+        </div>
+        <div className="cart-item-total">${(item.price * item.quantity).toFixed(2)}</div>
+        <button className="cart-item-remove" onClick={() => onRemove(item.id)} aria-label="Remove">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg>
+        </button>
+      </div>
+    </div>
+  );
+}
 
 export default function Cart() {
   const { items, subtotal, shipping, discount, total, coupon, updateQuantity, removeFromCart, clearCart, applyCoupon, removeCoupon } = useCart();
@@ -44,28 +101,8 @@ export default function Cart() {
         </div>
 
         <div className="cart-layout">
-          <div className="cart-items">
-            {items.map(item => (
-              <div className="cart-item" key={item.id}>
-                <Link to={`/book/${item.id}`} className="cart-item-img">
-                  <img src={item.cover} alt={item.title} />
-                </Link>
-                <div className="cart-item-info">
-                  <Link to={`/book/${item.id}`} className="cart-item-title">{item.title}</Link>
-                  <p className="cart-item-author">by {item.author}</p>
-                  <p className="cart-item-price">${item.price.toFixed(2)} each</p>
-                </div>
-                <div className="cart-item-qty">
-                  <button onClick={() => updateQuantity(item.id, item.quantity - 1)} disabled={item.quantity <= 1}>−</button>
-                  <span>{item.quantity}</span>
-                  <button onClick={() => updateQuantity(item.id, item.quantity + 1)}>+</button>
-                </div>
-                <div className="cart-item-total">${(item.price * item.quantity).toFixed(2)}</div>
-                <button className="cart-item-remove" onClick={() => removeFromCart(item.id)} aria-label="Remove">
-                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg>
-                </button>
-              </div>
-            ))}
+          <div className="cart-items" style={{overflow:"hidden",borderRadius:"12px"}}>
+            {items.map(item => <SwipeableCartItem key={item.id} item={item} onRemove={removeFromCart} UpdateQty={updateQuantity} />)}
           </div>
 
           <div className="cart-summary">

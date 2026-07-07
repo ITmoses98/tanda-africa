@@ -1,9 +1,29 @@
-import { useState } from "react";
+import { useState, useRef } from "react";
 import { Link } from "react-router-dom";
-import HeroBanner from "../components/HeroBanner";
+import SwipeableHero from "../components/SwipeableHero";
 import BookCard from "../components/BookCard";
 import { useBooks } from "../context/BookContext";
 import { testimonials as testimonialList } from "../data/testimonials";
+
+function SwipeableBookRow({ title, books }) {
+  const scrollRef = useRef(null);
+
+  return (
+    <section className="section swipe-row">
+      <div className="container">
+        <div className="section-header">
+          <h2>{title}</h2>
+          <Link to="/catalog" className="view-all">View All →</Link>
+        </div>
+        <div className="swipe-scroll" ref={scrollRef}>
+          {books.map(book => (
+            <BookCard key={book.id} book={book} />
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
 
 export default function Home() {
   const { books, featuredBooks, bestsellerBooks, categories } = useBooks();
@@ -11,7 +31,7 @@ export default function Home() {
 
   return (
     <>
-      <HeroBanner />
+      <SwipeableHero />
 
       <section className="section categories-section">
         <div className="container">
@@ -48,6 +68,8 @@ export default function Home() {
           </div>
         </div>
       </section>
+
+      <SwipeableBookRow title="Best Sellers" books={bestsellerBooks.slice(0, 10)} />
 
       <section className="section features-section">
         <div className="container">

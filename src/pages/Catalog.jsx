@@ -1,6 +1,7 @@
 import { useState, useMemo } from "react";
 import { useSearchParams } from "react-router-dom";
 import BookCard from "../components/BookCard";
+import BottomSheet from "../components/BottomSheet";
 import { useBooks } from "../context/BookContext";
 
 export default function Catalog() {
@@ -169,6 +170,61 @@ const authors = [...new Set(books.map(b => b.author))].sort();
               Clear All Filters
             </button>
           </aside>
+          <BottomSheet open={showFilters} onClose={() => setShowFilters(false)} title="Filters">
+            <div className="filter-group">
+              <h4>Category</h4>
+              <div className="filter-options">
+                <button className={`filter-chip ${!categoryFilter ? "active" : ""}`} onClick={() => updateFilter("category", "")}>All</button>
+                {categories.map(cat => (
+                  <button key={cat.id} className={`filter-chip ${categoryFilter === cat.id ? "active" : ""}`} onClick={() => updateFilter("category", cat.id)}>
+                    {cat.name}
+                  </button>
+                ))}
+              </div>
+            </div>
+            <div className="filter-group">
+              <h4>Format</h4>
+              <div className="filter-options">
+                {["", "Paperback", "Hardcover", "eBook", "Audiobook"].map(f => (
+                  <label key={f} className="filter-radio">
+                    <input type="radio" name="format-sheet" checked={formatFilter === f.toLowerCase()} onChange={() => updateFilter("format", f ? f.toLowerCase() : "")} />
+                    <span>{f || "All"}</span>
+                  </label>
+                ))}
+              </div>
+            </div>
+            <div className="filter-group">
+              <h4>Price Range</h4>
+              <div className="price-range">
+                <input type="range" min="0" max="200" value={priceRange[1]} onChange={e => setPriceRange([priceRange[0], parseInt(e.target.value)])} />
+                <div className="price-labels"><span>${priceRange[0]}</span><span>${priceRange[1]}</span></div>
+              </div>
+            </div>
+            <div className="filter-group">
+              <h4>Publisher</h4>
+              <select value={selectedPublisher} onChange={e => setSelectedPublisher(e.target.value)}>
+                <option value="">All Publishers</option>
+                {publishers.map(p => <option key={p} value={p}>{p}</option>)}
+              </select>
+            </div>
+            <div className="filter-group">
+              <h4>Author</h4>
+              <select value={selectedAuthor} onChange={e => setSelectedAuthor(e.target.value)}>
+                <option value="">All Authors</option>
+                {authors.map(a => <option key={a} value={a}>{a}</option>)}
+              </select>
+            </div>
+            <button className="btn btn-secondary btn-block" onClick={() => {
+              setSelectedPublisher("");
+              setSelectedAuthor("");
+              setPriceRange([0, 200]);
+              updateFilter("category", "");
+              updateFilter("format", "");
+              setShowFilters(false);
+            }}>
+              Clear All Filters
+            </button>
+          </BottomSheet>
 
           <div className="catalog-main">
             <div className="catalog-toolbar">
