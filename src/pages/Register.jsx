@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, useSearchParams } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
 import GoogleLoginButton from "../components/GoogleLoginButton";
 import PhoneInput from "../components/PhoneInput";
@@ -17,6 +17,8 @@ export default function Register() {
   const [sending, setSending] = useState(false);
   const { register, googleLogin } = useAuth();
   const navigate = useNavigate();
+  const [search] = useSearchParams();
+  const redirect = search.get("redirect") || "/";
 
   const handlePhoneChange = (val) => setPhoneData(val);
 
@@ -85,12 +87,12 @@ export default function Register() {
     }
     const fullPhone = `${phoneData.dial}${phoneData.number}`;
     register(name, email, password, fullPhone);
-    navigate("/account");
+    navigate(redirect);
   };
 
   const handleGoogleSuccess = (user) => {
     googleLogin(user);
-    navigate("/account");
+    navigate(redirect);
   };
 
   return (
@@ -153,7 +155,7 @@ export default function Register() {
             <button type="submit" className="btn btn-primary btn-block">Create Account</button>
           </form>
           <p className="auth-footer">
-            Already have an account? <Link to="/login">Sign in</Link>
+            Already have an account? <Link to={`/login?redirect=${encodeURIComponent(redirect)}`}>Sign in</Link>
           </p>
         </div>
       </div>

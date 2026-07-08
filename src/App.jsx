@@ -1,6 +1,8 @@
 import { useEffect } from "react";
 import { Routes, Route, Navigate, useLocation } from "react-router-dom";
 import { useAuth } from "./context/AuthContext";
+import Login from "./pages/Login";
+import Register from "./pages/Register";
 import Layout from "./components/Layout";
 import AdminLayout from "./components/AdminLayout";
 import DashboardLayout from "./components/DashboardLayout";
@@ -9,8 +11,6 @@ import Catalog from "./pages/Catalog";
 import BookDetail from "./pages/BookDetail";
 import Cart from "./pages/Cart";
 import Checkout from "./pages/Checkout";
-import Login from "./pages/Login";
-import Register from "./pages/Register";
 import Account from "./pages/Account";
 import Wishlist from "./pages/Wishlist";
 import About from "./pages/About";
@@ -53,7 +53,8 @@ function AdminGuard({ children }) {
 
 function AuthGuard({ children }) {
   const { isAuthenticated } = useAuth();
-  if (!isAuthenticated) return <Navigate to="/login" />;
+  const loc = useLocation();
+  if (!isAuthenticated) return <Navigate to={`/login?redirect=${encodeURIComponent(loc.pathname + loc.search)}`} />;
   return children;
 }
 
@@ -68,14 +69,18 @@ export default function App() {
     <>
       <ScrollToTop />
       <Routes>
-      <Route element={<Layout />}>
+      <Route path="/login" element={<Layout />}>
+        <Route index element={<Login />} />
+      </Route>
+      <Route path="/register" element={<Layout />}>
+        <Route index element={<Register />} />
+      </Route>
+      <Route element={<AuthGuard><Layout /></AuthGuard>}>
         <Route path="/" element={<Home />} />
         <Route path="/catalog" element={<Catalog />} />
         <Route path="/book/:id" element={<BookDetail />} />
         <Route path="/cart" element={<Cart />} />
         <Route path="/checkout" element={<Checkout />} />
-        <Route path="/login" element={<Login />} />
-        <Route path="/register" element={<Register />} />
         <Route path="/account" element={<Account />} />
         <Route path="/orders" element={<Account />} />
         <Route path="/wishlist" element={<Wishlist />} />

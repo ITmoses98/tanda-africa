@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, useSearchParams } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
 import GoogleLoginButton from "../components/GoogleLoginButton";
 
@@ -9,6 +9,8 @@ export default function Login() {
   const [error, setError] = useState("");
   const { login, googleLogin } = useAuth();
   const navigate = useNavigate();
+  const [search] = useSearchParams();
+  const redirect = search.get("redirect") || "/";
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -19,12 +21,12 @@ export default function Login() {
     }
     login(email, password);
     const isAdmin = email === "admin@tandaafrica.com" || (email === "moses@tandaafrica.com" && password === "moses@");
-    navigate(isAdmin ? "/admin" : "/account");
+    navigate(isAdmin ? "/admin" : redirect);
   };
 
   const handleGoogleSuccess = (user) => {
     googleLogin(user);
-    navigate("/account");
+    navigate(redirect);
   };
 
   return (
@@ -48,7 +50,7 @@ export default function Login() {
             <button type="submit" className="btn btn-primary btn-block">Sign In</button>
           </form>
           <p className="auth-footer">
-            Don't have an account? <Link to="/register">Create one</Link>
+            Don't have an account? <Link to={`/register?redirect=${encodeURIComponent(redirect)}`}>Create one</Link>
           </p>
         </div>
       </div>
